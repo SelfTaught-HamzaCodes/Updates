@@ -57,13 +57,15 @@ Labelify is here to make your labeling tasks not only quicker but also more accu
   [**Labelify-1.0**](https://www.dropbox.com/scl/fi/06th54avl0q9jwlae1mv0/Labelify-1.0.exe?rlkey=uhsks9xpxslrxcgj6ek67th5g&dl=0).
 
 - ### Tutorials
-  (Upload the links to youtube videos and MP4 files, Tutorial, Demonstration, Other Videos)
+  - [What is Labelify ? (EN)](https://youtu.be/EsiakREzZCY)  
+  - [What is Labelify ? (CN)](https://youtu.be/v4APur5guWU) 
+  - [How to use Labelify ?](https://youtu.be/a0yXwKmLU8Y)
 <br></br>
 ## FAQ
-- Q: **Is labelify free to use** ?
+- **Q: Is labelify free to use** ?
 
   **A**: Yes, Labelify is free to use for 30 days. Plans to make it completely free are in the works.
-- Q: **Once the packing list, formatted labels and the placeholders are set, I cannot generate labels** ?
+- **Q: Once the packing list, formatted labels and the placeholders are set, I cannot generate labels** ?
 
   **A**: Run your program in **Adminstrator Mode**.
 <br></br>    
