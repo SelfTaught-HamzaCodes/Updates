@@ -42,22 +42,13 @@ class GenerateLabels:
             font_family="arvo",
             color=ft.colors.BLUE_GREY_50)
 
-        # Settings:
-        self.display_name = None
-
-        self.settings = ft.PopupMenuButton(
-            content=ft.Icon(name=ft.icons.SETTINGS, color=ft.colors.BLUE_GREY_50),
-        )
 
         # DataTable:
         self.datatable = ft.DataTable(
+
             columns=[
                 ft.DataColumn(ft.Text("PlaceHolders", font_family="arvo", color=ft.colors.WHITE)),
-                ft.DataColumn(ft.Text("Fixed", font_family="arvo", color=ft.colors.WHITE)),
-                ft.DataColumn(ft.Text("Select Value", font_family="arvo", color=ft.colors.WHITE, width=200)),
-                ft.DataColumn(ft.Text("Enter Value", font_family="arvo", color=ft.colors.WHITE)),
-                ft.DataColumn(ft.Text("Save Value", font_family="arvo", color=ft.colors.WHITE))
-
+                ft.DataColumn(ft.Text("Select Value", font_family="arvo", color=ft.colors.WHITE)),
             ],
             heading_row_color="#1D976C",
             expand=True,
@@ -132,12 +123,11 @@ class GenerateLabels:
 
         # Container B:
         positioning = ft.Column([
-            ft.Row([self.settings]),
             ft.Row([heading], alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([generate], alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([self.file_uploads, self.generate_label], alignment=ft.MainAxisAlignment.CENTER)
 
-        ], expand=True)
+        ], expand=True,alignment=ft.MainAxisAlignment.CENTER)
 
         # Main Container:
         self.outer_container = ft.Container(
@@ -160,8 +150,10 @@ class GenerateLabels:
 
         # Add Elements:
         for placeholder in self.placeholders:
+
+            print(placeholder)
+
             text_element = ft.Text(placeholder, font_family="arvo")
-            checkbox_element = ft.Checkbox(fill_color="#1D976C")
             dropdown_element = ft.Dropdown(border=ft.InputBorder.NONE,
                                            border_color="#1D976C",
                                            hint_text="Select Value",
@@ -169,32 +161,18 @@ class GenerateLabels:
                                            options=[
                                                ft.dropdown.Option(option) for option in self.columns
                                            ])
-            text_field_element = ft.TextField(hint_text="Enter Value",
-                                              disabled=True,
-                                              border=ft.InputBorder.NONE,
-                                              text_style=ft.TextStyle(font_family="arvo"))
-
-            save_checkbox = ft.Checkbox(fill_color="#1D976C", disabled=True)
-
-            checkbox_element.on_change = lambda _, p=placeholder: self.checkbox_dynamic(p)
-
+           
             self.elements[placeholder] = {
                 'text_element': text_element,
-                'checkbox_element': checkbox_element,
                 'dropdown_element': dropdown_element,
-                'text_field_element': text_field_element,
-                'save_checkbox': save_checkbox,
             }
 
         self.datatable.rows = [
             ft.DataRow(
                 cells=[
                     ft.DataCell(element_values['text_element']),
-                    ft.DataCell(element_values['checkbox_element']),
                     ft.DataCell(element_values['dropdown_element']),
-                    ft.DataCell(element_values['text_field_element']),
-                    ft.DataCell(element_values['save_checkbox'])
-
+                    
                 ]
             ) for element_values in self.elements.values()
         ]
@@ -218,106 +196,8 @@ class GenerateLabels:
 
         self.generated.save(path)
 
-    # Change Fixed / Non-Fixed Checkbox:
-    def checkbox_dynamic(self, placeholder):
-
-        # Checkbox value:
-        cb_value = self.elements[placeholder]["checkbox_element"].value
-
-        # If fixed values:
-        if cb_value:
-
-            # Value for Text-Field:
-            self.elements[placeholder]["text_field_element"].disabled = False
-            self.elements[placeholder]["text_field_element"].value = ""
-            self.elements[placeholder]["save_checkbox"].disabled = False
-
-            # Load values from JSON:
-            self.elements[placeholder]["dropdown_element"].options = [
-                ft.dropdown.Option(option) for option in self.controller.get_fixed_values(placeholder)
-            ]
-
-        else:
-
-            # Value for Drop-Down:
-            self.elements[placeholder]["dropdown_element"].value = ""
-            self.elements[placeholder]["dropdown_element"].options = [
-                ft.dropdown.Option(option) for option in self.columns
-            ]
-
-            # Disable Text Field and Checkbox:
-            self.elements[placeholder]["text_field_element"].value = ""
-            self.elements[placeholder]["text_field_element"].disabled = True
-            self.elements[placeholder]["save_checkbox"].value = False
-            self.elements[placeholder]["save_checkbox"].disabled = True
-
-        self.controller.page.update()
-
-    # Display Name:
-    def get_display_name(self):
-
-        json_file = self.controller.model.get_local_file("session.json")
-
-        session = self.controller.model.decrypt_file(json_file, self.controller.model.generate_key(),
-                                                     retrieve=True)
-        self.display_name = session["display_name"]
-
-        self.settings.items = [
-            ft.PopupMenuItem(text=F"Hi, {self.display_name}", icon=ft.icons.ACCOUNT_CIRCLE),
-            ft.PopupMenuItem(),
-            ft.PopupMenuItem(text="Check for updates", icon=ft.icons.UPDATE, on_click=lambda _:self.check_update()),
-            ft.PopupMenuItem(),
-            ft.PopupMenuItem(text="Logout", icon=ft.icons.LOGOUT, on_click=lambda _:self.controller.logout())
-        ]
-
-    # Update check:
-    def check_update(self):
-
-        # Current version:
-        application = self.controller.model.application_version()
-
-        # Check for updates:
-        update_available = self.controller.model.update_available()
-
-        download_link = ft.Text()
-
-        # Link to download (if update is available):
-        if update_available == "Update available":
-            download_link = ft.Text(spans=[ft.TextSpan(
-                "Click to Download Update!", ft.TextStyle(color="#1D976C", weight=ft.FontWeight.BOLD),
-                url="https://github.com/SelfTaught-HamzaCodes/Labelify",
-            )], color="#1D976C", font_family="arvo", style=ft.TextThemeStyle.TITLE_MEDIUM)
-
-        # Placement:
-        content = ft.Column([
-            ft.Row([ft.Text(f"Current Version: ", spans=[ft.TextSpan(
-                f"{application}", ft.TextStyle(color="#1D976C", weight=ft.FontWeight.BOLD)
-            )], color="#1D976C", font_family="arvo", style=ft.TextThemeStyle.TITLE_MEDIUM)]),
-
-            ft.Row([ft.Text(f"Status: ", spans=[ft.TextSpan(
-                f"{update_available}", ft.TextStyle(color="#1D976C", weight=ft.FontWeight.BOLD)
-            )], color="#1D976C", font_family="arvo", style=ft.TextThemeStyle.TITLE_MEDIUM)]),
-
-            ft.Row([download_link])
-
-        ], height=75)
-
-        self.dialog_x = ft.AlertDialog(
-            title=ft.Text("Application Updates", font_family="arvo", color="#004643"),
-            content=content,
-            actions_alignment=ft.MainAxisAlignment.CENTER,
-            open=False)
-
-        # Open AlertDialog:
-        self.controller.page.dialog = self.dialog_x
-        self.dialog_x.open = True
-        self.controller.page.update()
-
     # Return View:
     def get_view(self):
-
-        # Display Name:
-        self.get_display_name()
 
         # Get PlaceHolders:
         self.placeholders = self.controller.get_placeholders()

@@ -35,12 +35,7 @@ class FileUploads:
         # Excel Sheets:
         self.excel_sheets = None
 
-        # Settings:
-        self.display_name = None
-
-        self.settings = ft.PopupMenuButton(
-            content=ft.Icon(name=ft.icons.SETTINGS, color=ft.colors.BLUE_GREY_50),
-        )
+        
         # Icons:
 
         # Excel:
@@ -156,7 +151,7 @@ class FileUploads:
         self.generate = ft.ElevatedButton(content=ft.Text("Generate", font_family="arvo"),
                                           disabled=True,
                                           width=250,
-                                          color=ft.colors.BLUE_GREY_50,
+                                          color=ft.colors.BLUE_GREY_900,
                                           bgcolor="#1D976C",
                                           on_click=lambda _: self.controller.change_route("/generate_labels"),
                                           style=ft.ButtonStyle(
@@ -211,12 +206,11 @@ class FileUploads:
 
         # Container B:
         positioning = ft.Column([
-            ft.Row([self.settings]),
             ft.Row([heading], alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([excel_container], alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([word_container], alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([self.generate], alignment=ft.MainAxisAlignment.CENTER)
-        ], expand=True)
+        ], expand=True, alignment=ft.MainAxisAlignment.CENTER)
 
         # Main Container:
         self.outer_container = ft.Container(
@@ -285,10 +279,12 @@ class FileUploads:
                     ],
                     actions_alignment=ft.MainAxisAlignment.CENTER,
                     open=False,
-                    on_dismiss=lambda _: self.controller.set_excel_values(
-                        None, None, None
-                    ))
-
+                    # on_dismiss=lambda _: self.set_excel_values(
+                    #     None, None, None
+                    # )
+                )
+                
+                
                 self.excel_f.value = e.files[0].name
 
                 # Open AlertDialog:
@@ -310,6 +306,7 @@ class FileUploads:
             # Enable Button, if both files are selected:
             if all(self.controller.get_excel_values()) and self.controller.get_word_file():
                 self.generate.disabled = False
+                self.generate.bgcolor=ft.colors.BLUE_GREY_50
                 self.controller.page.update()
 
         except Exception as f:
@@ -333,73 +330,8 @@ class FileUploads:
         # Set Excel Values:
         self.controller.set_excel_values(path, sheet, row)
 
-        print(self.controller.model.excel_path,
-              self.controller.model.excel_sheet,
-              self.controller.model.excel_row)
-
-    # Display Name:
-    def get_display_name(self):
-        session = self.controller.model.decrypt_file(self.controller.model.get_local_file("session.json"),
-                                                     self.controller.model.generate_key(),
-                                                     retrieve=True)
-        self.display_name = session["display_name"]
-
-        self.settings.items = [
-            ft.PopupMenuItem(text=F"Hi, {self.display_name}", icon=ft.icons.ACCOUNT_CIRCLE),
-            ft.PopupMenuItem(),
-            ft.PopupMenuItem(text="Check for updates", icon=ft.icons.UPDATE, on_click=lambda _: self.check_update()),
-            ft.PopupMenuItem(),
-            ft.PopupMenuItem(text="Logout", icon=ft.icons.LOGOUT, on_click=lambda _: self.controller.logout())
-        ]
-
-    # Update check:
-    def check_update(self):
-
-        # Current version:
-        application = self.controller.model.application_version()
-
-        # Check for updates:
-        update_available = self.controller.model.update_available()
-
-        download_link = ft.Text()
-
-        # Link to download (if update is available):
-        if update_available == "Update available":
-            download_link = ft.Text(spans=[ft.TextSpan(
-                "Click to Download Update!", ft.TextStyle(color="#1D976C", weight=ft.FontWeight.BOLD),
-                url="https://github.com/SelfTaught-HamzaCodes/Labelify",
-            )], color="#1D976C", font_family="arvo", style=ft.TextThemeStyle.TITLE_MEDIUM)
-
-        # Placement:
-        content = ft.Column([
-            ft.Row([ft.Text(f"Current Version: ", spans=[ft.TextSpan(
-                f"{application}", ft.TextStyle(color="#1D976C", weight=ft.FontWeight.BOLD)
-            )], color="#1D976C", font_family="arvo", style=ft.TextThemeStyle.TITLE_MEDIUM)]),
-
-            ft.Row([ft.Text(f"Status: ", spans=[ft.TextSpan(
-                f"{update_available}", ft.TextStyle(color="#1D976C", weight=ft.FontWeight.BOLD)
-            )], color="#1D976C", font_family="arvo", style=ft.TextThemeStyle.TITLE_MEDIUM)]),
-
-            ft.Row([download_link])
-
-        ], height=75)
-
-        self.dialog_x = ft.AlertDialog(
-            title=ft.Text("Application Updates", font_family="arvo", color="#004643"),
-            content=content,
-            actions_alignment=ft.MainAxisAlignment.CENTER,
-            open=False)
-
-        # Open AlertDialog:
-        self.controller.page.dialog = self.dialog_x
-        self.dialog_x.open = True
-        self.controller.page.update()
-
     # Return View:
     def get_view(self):
-
-        # Get display name:
-        self.get_display_name()
 
         # Reset Placeholders:
         self.controller.model.placeholders.clear()
