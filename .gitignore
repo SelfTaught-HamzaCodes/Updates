@@ -2,8 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-codebase/label_generator/__pycache__
-codebase/label_generator/Views/__pycache__
+**/__pycache__/
 
 # C extensions
 *.so
