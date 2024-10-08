@@ -28,8 +28,12 @@ class Controller:
         # Full Screen Application:
         self.page.window_maximized = True
 
+        # Initial Launch:
+        self.initial_launch = False
+
         # Change routes:
         self.route_change(self.page.route)
+
 
     def change_route(self, route):
         """
@@ -46,7 +50,9 @@ class Controller:
     def route_change(self, route):
         self.page.views.clear()
 
-        self.page.views.append(self.view5.get_view())
+        if not self.initial_launch:
+            self.page.views.append(self.view5.get_view())
+            self.initial_launch = True
 
         if self.page.route == "/file_uploads":
             self.page.views.append(self.view5.get_view())

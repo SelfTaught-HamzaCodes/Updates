@@ -22,6 +22,7 @@ class Model:
         self.word_path = None
         self.placeholders = []
 
+
     # Get abs_path to source:
     @staticmethod
     def resource_path(relative_path):
@@ -41,8 +42,6 @@ class Model:
         self.excel_sheet = sheet
         self.excel_row = row
 
-
-
     # Get values for Excel file and Configurations:
     def get_excel_values(self):
 
@@ -61,7 +60,7 @@ class Model:
 
         # Set File:
         self.word_path = word_file
-
+    
         # Generate PlaceHolders:
         self.set_placeholders()
 
@@ -69,6 +68,7 @@ class Model:
     def get_word_file(self):
 
         return self.word_path
+
 
     # Set Placeholders:
     def set_placeholders(self):
@@ -111,19 +111,19 @@ class Model:
 
             for placeholder, element in elements.items():
 
-                # Check Checkbox:
+                # If Dropdown had a value:
+                if element["dropdown_element"].value:
+                    value = packing_list[element["dropdown_element"].value].iloc[i]
+                    if isinstance(value, (int, float)):
+                        # Convert the value to a float, round to 3 decimal places, and format to retain trailing zeros
+                        context[placeholder] = f"{float(value):.3f}"
+                    else:
+                        context[placeholder] = str(value)
+                    continue
 
-                # If not checked, means not-fixed value:
-                if not element["checkbox_element"].value:
-
-                    # If Dropdown had a value:
-                    if element["dropdown_element"].value:
-                        context[placeholder] = str(packing_list[element["dropdown_element"].value].iloc[i])
-                        continue
-
-                    elif element["dropdown_element"].value:
-                        context[placeholder] = element["dropdown_element"].value
-                        continue
+                elif element["dropdown_element"].value:
+                    context[placeholder] = element["dropdown_element"].value
+                    continue
 
                 # Add Placeholder as the value, if not mentioned:
                 context[placeholder] = placeholder

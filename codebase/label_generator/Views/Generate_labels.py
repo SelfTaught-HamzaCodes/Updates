@@ -22,7 +22,7 @@ class GenerateLabels:
         self.controller.page.window_min_width, self.controller.page.window_min_height = 1280, 720
 
         # Placeholders & Columns:
-        self.placeholders = []
+        self.placeHolders = []
         self.columns = []
         self.elements = {}
 
@@ -149,9 +149,7 @@ class GenerateLabels:
         self.elements.clear()
 
         # Add Elements:
-        for placeholder in self.placeholders:
-
-            print(placeholder)
+        for placeholder in self.placeHolders:
 
             text_element = ft.Text(placeholder, font_family="arvo")
             dropdown_element = ft.Dropdown(border=ft.InputBorder.NONE,
@@ -200,7 +198,8 @@ class GenerateLabels:
     def get_view(self):
 
         # Get PlaceHolders:
-        self.placeholders = self.controller.get_placeholders()
+        self.placeHolders = self.controller.get_placeholders()
+
 
         # Get Column Names:
         self.columns = self.controller.get_column_names()

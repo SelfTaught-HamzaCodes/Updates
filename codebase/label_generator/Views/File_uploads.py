@@ -131,7 +131,6 @@ class FileUploads:
         # Placement:
 
         # Excel:
-
         excel_placement = ft.Column([
             ft.Row([excel_icon], alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([excel_button], alignment=ft.MainAxisAlignment.CENTER),
@@ -306,7 +305,6 @@ class FileUploads:
             # Enable Button, if both files are selected:
             if all(self.controller.get_excel_values()) and self.controller.get_word_file():
                 self.generate.disabled = False
-                self.generate.bgcolor=ft.colors.BLUE_GREY_50
                 self.controller.page.update()
 
         except Exception as f:
