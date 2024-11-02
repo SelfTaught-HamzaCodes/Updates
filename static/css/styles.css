@@ -1,0 +1,256 @@
+/* Custom Fonts */
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../font/Montserrat.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* Color Variables */
+:root {
+    --primary-color: #050d15;
+    --secondary-color: #00ffbf;
+    --background-color: #fff;
+    --text-color: #000;
+    --cta-color: #ffffff;
+    --cta-background-color: #000000;
+    --hero-text-color: #000000;
+    --footer-bg-color: #ffffff;
+    --footer-text-color: #000000;
+}
+
+/* General Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Montserrat";
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Promotion */
+.sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    background: #000;
+    padding: 0.5rem;
+    z-index: 1000;
+
+}
+
+/* Header */
+header {
+    background: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+
+    padding: 1rem 5rem;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+}
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+    width: 100%;
+    margin-right: 5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.app-image-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.app-name {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-left: 0.5rem;
+}
+
+.login-button {
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 0.2rem 0.1rem;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(255, 255, 255, 0.6);
+}
+
+.login-button:hover {
+    background-color: #f0f0f0;
+
+}
+
+/* Divider */
+hr.solid {
+    height: 1px;
+    opacity: 25%;
+}
+
+/* Hero Section */
+.hero {
+    color: var(--hero-text-color);
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 4rem;
+    font-weight: 900;
+}
+
+.hero p {
+    font-size: 1.25rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--cta-background-color);
+    color: var(--cta-color);
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+    background: var(--cta-color);
+    color: var(--cta-);
+    transform: translateY(-3px);
+}
+
+/* How It Works Section */
+.how-it-works {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Allows steps to wrap on smaller screens */
+    gap: 1rem;
+    /* Space between steps */
+    margin-top: 2rem;
+}
+
+.step {
+    flex: 1;
+    max-width: 250px;
+    /* Limit the width of each step */
+    padding: 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+/* Pricing Section */
+.pricing {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.pricing-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Allows cards to wrap on smaller screens */
+    gap: 1rem;
+    /* Space between cards */
+    margin-top: 2rem;
+}
+
+.card {
+    background: var(--primary-color);
+    color: var(--background-color);
+
+    border-radius: 5px;
+    padding: 2rem;
+    flex: 1;
+    max-width: 300px;
+    /* Limit the width of each card */
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    /* Lift effect on hover */
+}
+
+.price-discount {
+    display: flex;
+    /* Flexbox layout for price and discount */
+    align-items: center;
+    /* Center elements vertically */
+    justify-content: center;
+    /* Center elements horizontally */
+    gap: 0.5rem;
+    /* Space between price elements */
+    margin: 1rem 0;
+    /* Margin above and below price discount section */
+}
+
+.price-discount p {
+    margin: 0;
+    /* Remove default margin */
+    color: gray;
+    /* Gray color for original price */
+}
+
+.price-discount h3 {
+    margin: 0;
+    /* Remove default margin */
+    color: var(--background-color);
+    /* Black color for discounted price */
+}
+
+.featured {
+    border: 2px solid var(--primary-color);
+    /* Highlight featured card */
+}
+
+/* Footer */
+footer {
+    background: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    padding: 2rem;
+    text-align: center;
+}

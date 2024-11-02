@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.site_title | default("Micro SaaS Landing Page") }}</title>
+    <link rel="icon" href="{{data.site_logo}}" type="image/x-icon">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+</head>
+
+<body>
+
+    <div class="sticky">
+        {{ data.site_sticky | default("Welcome!") }}
+    </div>
+
+    <header>
+        <nav>
+            <div class=" app-image-name">
+                <img src="{{data.site_logo}}" alt="Logo for {{data.site_title}}" width="32" height="32">
+                <h1 class=" app-name">
+                    {{ data.site_title | default("Your SaaS Title!") }}
+                </h1>
+            </div>
+
+            <div>
+                <ul>
+                    <li><a href="#how-it-works">Pricing</a></li>
+                    <li><a href="#pricing">FAQ</a></li>
+                </ul>
+
+                <ul>
+            </div>
+
+            <div class="login-button">
+                <ul>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <hr class="solid">
+
+    <section class="hero">
+        <h2>{{ data.hero_title | default("Transform Your Business with Our Solution") }}</h2>
+        <p>{{ data.hero_description | default("Streamline your processes and enhance productivity with our micro-SaaS
+            application.") }}</p>
+        <a href="#pricing" class="cta-button">Get Started</a>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            {% for step in data.steps %}
+            <div class="step">
+                <h3>Step {{ loop.index }}</h3>
+                <p>{{ step }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <h2>Pricing Plans</h2>
+        <div class="pricing-cards">
+            {% for plan in data.pricing_plans %}
+            <div class="card {% if plan.featured %}featured{% endif %}">
+                <h2>{{ plan.name }}</h2>
+                <div class="price-discount">
+                    <p><s>{{ plan.price }}</s></p>
+                    <h3>{{ plan.discounted_price }}</h3>
+                </div>
+                <p>{{ plan.description }}</p>
+                <a href="#contact" class="cta-button">Sign Up</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <hr class="solid">
+
+    <footer>
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to reach out!</p>
+        <p>Email: {{ contact_email | default("support@microsaas.com") }}</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Example</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="nav-container">
+            <h1 class="app-name">Labelify</h1>
+            <div class="settings-icon">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/settings.png" alt="Settings" />
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Upload Your Files</h1>
+        <form id="upload-form">
+            <div class="file-upload">
+                <label for="file1">Upload File 1:</label>
+                <input type="file" id="file1" name="file1" accept="*">
+            </div>
+            <div class="file-upload">
+                <label for="file2">Upload File 2:</label>
+                <input type="file" id="file2" name="file2" accept="*">
+            </div>
+            <button type="submit" class="upload-button">Upload</button>
+        </form>
+        <div id="file-list">
+            <h2>Uploaded Files:</h2>
+            <ul id="uploaded-files"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

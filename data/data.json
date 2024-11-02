@@ -1,0 +1,26 @@
+{
+    "site_sticky": "Have a special offer ? Promote it here!",
+    "site_logo": "../static/img/ratio.ico",
+    "site_title": "Labelify",
+    "hero_title": "Create Once, Paste Forever",
+    "hero_description": "Generate shipping labels in seconds before you next shipment",
+    "steps": [
+        "Upload your Packing List",
+        "Upload a Single Label",
+        "Set Placeholders"
+    ],
+    "pricing_plans": [
+        {
+            "name": "Timid Bundle",
+            "price": "$10",
+            "discounted_price": "$7 / month",
+            "description": "Generate before time runs out!"
+        },
+        {
+            "name": "Forever Bundle",
+            "price": "$75",
+            "discounted_price": "$50",
+            "description": "Generate Forever"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+/* File Upload Section */
+.file-upload {
+    margin-bottom: 1rem;
+}
+
+.upload-button {
+    padding: 0.5rem 1rem;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    background: #0056b3;
+}
